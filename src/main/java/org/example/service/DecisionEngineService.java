@@ -32,7 +32,7 @@ public class DecisionEngineService {
         BigDecimal newLoanAmount = dto.getLoanAmount();
         int newLoanPeriod = dto.getPeriodInMonths();
 
-        validatePersonalCode(dto);
+        //validatePersonalCode(dto);
 
         if (creditScore.compareTo(BigDecimal.ZERO) == 0) {
             logger.info("Loan is not approved for customer {}. Reason: DEBT", dto.getPersonalCode());
@@ -64,7 +64,10 @@ public class DecisionEngineService {
 
         return new DecisionResponse(true, newLoanAmount, newLoanPeriod);
     }
-
+    /*
+    * Validation has been added but disabled for the sake of
+    * simplicity to make interaction with different personal codes easier.
+    * */
     private void validatePersonalCode(DecisionDto dto) {
         if (!validator.isValid(dto.getPersonalCode())) {
             logger.info("Personal code {} has incorrect format", dto.getPersonalCode());
